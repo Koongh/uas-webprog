@@ -9,10 +9,8 @@
 <!-- <link rel="stylesheet" href="../../css/home.css" /> -->
 @endsection
 
-<div>
-    <h1 class="blue">Hello</h1>
-</div>
 @section('content')
+    
 
 @endsection
 
