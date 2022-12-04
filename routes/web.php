@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 //List of Models used
 // use App\Models\Item;
 // use App\Models\Motorcycle;
@@ -21,9 +21,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-});
+// Route::get('/', function () {
+//     return view('home.index');
+// });
+
+Route::resource('/', HomeController::class);
+Route::resource('home', HomeController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
