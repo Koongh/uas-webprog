@@ -10,10 +10,13 @@
 @endsection
 
 @section('content')
-    <div class="px-3 py-3 flex flex-col md:flex-row space-y-4 space-x-4">
+
+
+    <div class="px-3 py-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         @foreach($items as $item)
-            <a href="/home/{{$item->id}}">
+            
                 <div class="max-w-sm w-80 h-90 rounded overflow-hidden shadow-lg">
+                    <a href="/home/{{$item->id}}">
                     <div class="w-full overflow-hidden flex justify-center" width="50rem" style="height: 20rem">
                         <img  src="{{asset('storage/'.$item->photo)}}" />
                     </div>
@@ -40,11 +43,14 @@
 
                     </div>
                         <a class="dropdown-item btn btn-warning" href="/home/{{$item->id}}/edit">Edit</a>
+                    </a>
                 </div>
-            </a>
+            
         
         @endforeach
     </div>
+
+
 
 @endsection
 

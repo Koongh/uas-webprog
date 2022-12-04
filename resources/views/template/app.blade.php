@@ -25,9 +25,9 @@
     @yield('custom-css')
 </head>
 <body id="body">
-    
-    <div class="content">
-        @include('template.navbar')
+    @include('template.navbar')
+    <div class="conten flex justify-center">
+        
         @yield('content')
     </div>
     
