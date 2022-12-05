@@ -35,6 +35,7 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
     Route::match(['get', 'put'],'/product/{id}/update', 'update')->name('dashboard.edit');
     Route::get('/dashboard/new-product', 'create')->name('dashboard.create');
     Route::match(['get', 'put'],'/product/store', 'store')->name('dashboard.store');
+    Route::get('/product/{id}/edit', 'delete')->name('dashboard.delete');
 });
 
 

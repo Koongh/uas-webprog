@@ -101,5 +101,12 @@ class DashboardController extends Controller
         $categories = Category::all();
         return view('dashboard.create',['categories'=>$categories]);
     }
+
+    public function delete($id){
+        $item = Item::find($id);
+        $item->stock = 0;
+        $item->save();
+        return redirect('/dashboard');
+    }
     
 }
