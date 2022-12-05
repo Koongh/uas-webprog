@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 //List of Models used
 // use App\Models\Item;
 // use App\Models\Motorcycle;
@@ -28,9 +29,14 @@ use App\Http\Controllers\HomeController;
 Route::resource('/', HomeController::class);
 Route::resource('home', HomeController::class);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(DashboardController::class)->middleware('auth')->group(function(){
+    Route::get('/dashboard', 'index')->name('dashboard');
+    Route::get('/product/{id}/edit', 'edit');
+    Route::match(['get', 'put'],'/product/{id}/update', 'update')->name('dashboard.edit');
+    Route::get('/dashboard/new-product', 'create')->name('dashboard.create');
+    Route::match(['get', 'put'],'/product/store', 'store')->name('dashboard.store');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -26,7 +26,7 @@
 </head>
 <body id="body">
     @include('template.navbar')
-    <div class="conten flex justify-center">
+    <div class="conten flex justify-center" style="background-color: #f3f4f6;">
         
         @yield('content')
     </div>
