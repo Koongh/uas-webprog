@@ -24,9 +24,14 @@
     <!-- Custom CSS -->
     @yield('custom-css')
 </head>
+<style>
+    body{
+        background-color: #f3f4f6;
+    }
+</style>
 <body id="body">
     @include('template.navbar')
-    <div class="conten flex justify-center" style="background-color: #f3f4f6;">
+    <div class="conten flex justify-center" >
         
         @yield('content')
     </div>

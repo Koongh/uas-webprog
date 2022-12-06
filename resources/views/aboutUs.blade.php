@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>About Us</title>
-</head>
-<body>
+@extends('template.app')
+
+<!-- link css external -->
+@section('custom-css')
+
+@endsection
+
+<!-- Coding HTML sini gais -->
+@section('content')
+<div class="p-4">
     <h1>About Us</h1>
     <h2>KSPEC MOTOR</h2>
     Toko aksesoris motor <br>
@@ -18,9 +22,10 @@
         <li>Senin - Jumat: 9:00am - 5:00pm</li>
         <li>Sabtu dan Minggu: 9:00am - 3:00pm</li>
     </ul> <br>
-    <h2>Kelompok 3</h2>
+    <!-- <h2>Kelompok 3</h2>
     Topik : Aplikasi transaksi dan pendataan barang untuk toko aksesoris motor KSPEC MOTOR <br>
-    Anggota Kelompok : <br>
+    Anggota Kelompok : <br> -->
+    <h2>Author:</h2>
     <ul>
         <li>1. Koong Hiap (00000055136) </li>
         <li>2. Christophorus Augusta Wangsa (00000055420) </li>
@@ -30,5 +35,17 @@
         <li>6. Jennifer Arlene Kurniawan (00000056232) </li>
         <li>7. Orde Gilbert Wiguna (00000055282) </li>
     </ul>
-</body>
-</html>
+
+</div>
+    
+
+@endsection
+
+<!-- Script javascriptnya disini gais -->
+@section('custom-js')
+<script>
+
+</script>
+@endsection
+    
+

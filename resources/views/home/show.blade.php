@@ -10,12 +10,25 @@
 @endsection
 
 @section('content')
-    <div class="px-3 py-3 ">
-        <h1>{{$item->name}}</h1>
-        <h3><b>{{$item->price}}</b></h3>
-        <p>{{$item->manufacture}}</p>
-        <p>{{$item->category->name}}</p>
-        <p>{{$item->description}}</p>
+    <div class="px-3 py-3 md:flex w-full space-x-4 space-y-4">
+        <div class="md:w-1/3 flex justify-center items-center">
+            @if($item->photo != null)
+                <img  src="{{asset('storage/'.$item->photo)}}" />
+            @else
+                <img  src="{{asset('storage/photos/corrupt.png')}}" />
+            @endif
+
+        </div>
+        <div class="bg-white rounded-xl p-4 md:w-2/3 ">
+            <b class="text-2xl">{{$item->name}}</b>
+            <h3><b>Harga: {{$item->price}}</b></h3>
+            <p>Manufacture: {{$item->manufacture}}</p>
+            <p>Kategori: {{$item->category->name}}</p>
+            <p>Description:</p><p> {{$item->description}}</p>
+        </div>
+        
+
+        
     </div>
 
 @endsection

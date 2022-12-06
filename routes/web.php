@@ -36,6 +36,19 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
     Route::get('/dashboard/new-product', 'create')->name('dashboard.create');
     Route::match(['get', 'put'],'/product/store', 'store')->name('dashboard.store');
     Route::get('/product/{id}/delete', 'delete')->name('dashboard.delete');
+    Route::get('/account', 'account');
+    // Route::get('/dashboard/stock', 'stock')->name('dashboard.addStock');
+    // Route::get('/dashboard/stock-product', 'addStock')->name('dashboard.addStock');
+});
+
+Route::controller(HomeController::class)->middleware('auth')->group(function(){
+    Route::get('discount', 'discount');
+    // Route::get('discount', '');
+});
+
+
+Route::get("/about-us", function(){
+    return view('aboutUs');
 });
 
 
@@ -44,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
 

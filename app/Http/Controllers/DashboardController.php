@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\User;
 use Storage;
 
 class DashboardController extends Controller
@@ -84,14 +85,25 @@ class DashboardController extends Controller
             $ext = $request->file('photo')->extension();
         }
 
+        
+
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
+        if(gettype($request->category) == "string"){
+            $category = new Category();
+            $category->name = $request->category;
+            $category->save();
+
+            $item->category_id = $category->id;
+        }else{
+            $item->category_id = $request->category;
+        }
         $item->stock = $request->stock;
         $item->discount = $request->discount;
         $item->description = $request->description;
         $item->manufacturer = $request->manufacturer;
-        $item->category_id = $request->category;
+        
         $item->photo = $path;
         $item->save();
         return redirect('/dashboard');
@@ -108,5 +120,20 @@ class DashboardController extends Controller
         $item->save();
         return redirect('/dashboard');
     }
+
+    public function account(){
+        $users = User::all();
+        return view('dashboard.account',['users'=>$users]);
+    }
+
+    // public function stock(){
+    //     $items = Item::all();
+    //     return view('dashboard.stock',['items' => $items] );
+    // }
+
+    // public function addStock(Request $reqest){
+    //     $item = Item::find($request->id);
+    //     $item->description = "ini hasil test berhasil";
+    // }
     
 }

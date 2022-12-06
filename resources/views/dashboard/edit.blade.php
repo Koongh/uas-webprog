@@ -7,103 +7,96 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white flex md:flex-row overflow-hidden shadow-sm sm:rounded-lg">
-                <div>
-                    <img src="{{asset('storage/'.$item->photo)}}" />
+            <div class="p-6 bg-white flex flex-col justify-center item-center md:flex-row overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="flex justify-center w-full md:w-1/2 lg:w-1/3 h-80">
+                    @if($item->photo != null)
+                        <img id="preview-image" class="w-80" src="{{asset('storage/'.$item->photo)}}" />
+                    @else
+                        <img id="preview-image" class="w-80" src="{{asset('storage/photos/corrupt.png')}}" />
+                    @endif
                 </div>
-                <div class="p-6 text-gray-900">
-                    <form class="w-full max-w-sm" action="/product/{{$item->id}}}/update" method="post" enctype="multipart/form-data">
+                <div class="text-gray-900 md:w-1/2 lg:w-2/3">
+                    <form class="w-full " action="/product/{{$item->id}}}/update" method="post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
-                        <div class="md:flex md:items-center mb-6">
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                                    Product Name
-                                </label>
-                            </div>
-                            <div class="md:w-2/3">
-                                <input name="name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('name') ?? $item->name}}">
-                            </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                                    Price
-                                </label>
-                            </div>
-                            <div class="md:w-2/3">
-                                <input name="price" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('price') ?? $item->price}}">
-                            </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                                    Stock
-                                </label>
-                            </div>
-                            <div class="md:w-2/3">
-                                <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-                                    <button type="button" data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                                        <span class="m-auto text-2xl font-thin">−</span>
-                                    </button>
-                                    <input name="stock" type="number" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="{{old('stock') ?? $item->stock}}"></input>
-                                    <button type="button" data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
-                                        <span class="m-auto text-2xl font-thin">+</span>
-                                    </button>
+                        <div class="w-full md:items-center mb-6">
+                            <div class="w-full lg:flex lg:space-x-4">
+                                <div class="lg:w-1/2">
+                                    <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        Product Name
+                                    </label>
+                                    <input name="name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('name') ?? $item->name}}">
                                 </div>
-                                <!-- <input name="stock" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('stock') ?? $item->stock}}"> -->
+                                <div class="lg:w-1/2">
+                                    <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        Price
+                                    </label>
+                                    <input name="price" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('price') ?? $item->price}}">
+                                </div>
+
                             </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                                    Discount
-                                </label>
+                            <div class="lg:flex lg:space-x-4">
+                                <div class="lg:w-1/2">
+                                    <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        Stock
+                                    </label>
+                                    <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                                        <button type="button" data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                            <span class="m-auto text-2xl font-thin">−</span>
+                                        </button>
+                                        <input name="stock" type="number" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="{{old('stock') ?? $item->stock}}"></input>
+                                        <button type="button" data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                                            <span class="m-auto text-2xl font-thin">+</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="lg:w-1/2">
+                                    <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        Discount
+                                    </label>
+                                    <input name="discount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('discount') ?? $item->discount}}">
+                                </div>
                             </div>
-                            <div class="md:w-2/3">
-                                <input name="discount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('discount') ?? $item->discount}}">
-                            </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                            <div class="">
+                                <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Description
                                 </label>
+                                <textarea name="description" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" >{{old('description') ?? $item->description}}</textarea>
                             </div>
-                            <div class="md:w-2/3">
-                                <input name="description" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('description') ?? $item->description}}">
+                            
+                            <div class="lg:flex lg:space-x-4">
+                                <div class="lg:w-1/2">
+                                    <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        Manufacturer
+                                    </label>
+                                    <input name="manufacturer" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('manufacturer') ?? $item->manufacturer}}">
+                                </div>
+                                <div class="lg:w-1/2">
+                                    <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        Category
+                                    </label>
+                                    <select class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="category" >
+                                        @foreach($categories as $category)
+                                            @if (old('category') ?? $category->name == $item->category->name)
+                                                <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                                            @else
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                             </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                                    Manufacturer
-                                </label>
                             </div>
-                            <div class="md:w-2/3">
-                                <input name="manufacturer" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('manufacturer') ?? $item->manufacturer}}">
-                            </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                                    Category
-                                </label>
-                            </div>
-                            <div class="md:w-2/3">
-                                <select name="category" >
-                                    @foreach($categories as $category)
-                                        @if (old('category') ?? $category->name == $item->category->name)
-                                            <option value="{{$category->id}}" selected>{{$category->name}}</option>
-                                        @else
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="md:w-1/3">
-                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                            
+                            <div class="">
+                                <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Photo
                                 </label>
+                                <input id="image" type="file" name="photo" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{$item->photo}}">
                             </div>
-                            <div class="md:w-2/3">
-                                <input type="file" name="photo" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{$item->photo}}">
-                            </div>
-                            <div class="md:flex md:items-center">
-                                <div class="md:w-1/3"></div>
-                                <div class="md:w-2/3">
-                                    <button class="shadow bg-dark hover:bg-purple-400 focus:shadow-outline focus:outline-none text-black font-bold py-2 px-4 rounded" type="submit">
-                                        Submit
-                                    </button>
-                                </div>
+                            <div class="flex justify-end mt-4">
+                                <button class="shadow bg-black text-white font-bold py-2 px-4 rounded" type="submit">
+                                    Submit
+                                </button>
                             </div>
                         </div>
                     <form>
@@ -148,5 +141,18 @@
   incrementButtons.forEach(btn => {
     btn.addEventListener("click", increment);
   });
+
+  $(document).ready(function(e){
+            
+        $('#image').change(function(){
+                document.querySelector('#preview-image').classList.remove("hidden");
+                console.log($('#preview-image'));
+                let reader = new FileReader();
+                reader.onload = (e) =>{
+                    $('#preview-image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            })
+        })
 </script>
 </x-app-layout>

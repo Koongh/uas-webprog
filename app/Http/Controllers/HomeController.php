@@ -53,5 +53,10 @@ class HomeController extends Controller
 
         
     }
+
+    public function discount(){
+        $items = Item::all()->where('discount', '>', 0);
+        return view('home.discount', ['items' => $items]);
+    }
     
 }
