@@ -41,7 +41,7 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
     // Route::get('/dashboard/stock-product', 'addStock')->name('dashboard.addStock');
 });
 
-Route::controller(HomeController::class)->middleware('auth')->group(function(){
+Route::controller(HomeController::class)->group(function(){
     Route::get('discount', 'discount');
     // Route::get('discount', '');
 });

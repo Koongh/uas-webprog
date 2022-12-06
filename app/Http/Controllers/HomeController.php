@@ -34,17 +34,24 @@ class HomeController extends Controller
     }
 
     public function update(Request $request, $id){
-        if($request->file('photo') == null){
-            $path = Student::find($id)->photo;
-        }else{
-            $path = $request->file('photo')->storePublicly('photos', 'public');
-            $ext = $request->file('photo')->extension();
+        // if($request->file('photo') == null){
+        //     $path = Student::find($id)->photo;
+        // }else{
+        //     $path = $request->file('photo')->storePublicly('photos', 'public');
+        //     $ext = $request->file('photo')->extension();
+        // }
+        
+        for($i = 1;$i<5;$i++){
+            $index = "arr".$i;
+            var_dump($request->$index);
         }
+        
+        exit;
 
-        $item = Item::findOrFail($id);
-        $item->photo = $path;
-        $item->save();
-        return redirect('/');
+        // $item = Item::findOrFail($id);
+        // $item->photo = $path;
+        // $item->save();
+        // return redirect('/');
     }
 
     public function store(Request $request){
