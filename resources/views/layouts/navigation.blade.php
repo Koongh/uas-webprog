@@ -18,9 +18,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" >
+                    @can('gate_admin')
+                    <x-nav-link :href="route('account')" >
                         {{ __('Account Manager') }}
                     </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

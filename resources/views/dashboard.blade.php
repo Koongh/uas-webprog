@@ -198,7 +198,7 @@
                     // console.log(e.innerHTML);
                     let check = e.innerHTML;
                     if(check.includes(input)){
-                        console.log("berhasil");
+                        // console.log("berhasil");
                         e.parentElement.parentElement.parentElement.classList.remove('hidden');
                     }
                     

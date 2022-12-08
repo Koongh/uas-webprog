@@ -9,12 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <table class="w-full">
+                    <table class="w-full table-auto">
                         <thead>
                             <tr class="text-left">
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th class="hidden md:block">Email</th>
                                 <th>Role</th>
                                 <th></th>
                             </tr>
@@ -24,7 +24,7 @@
                                 <tr>
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
+                                    <td class="hidden md:block">{{$user->email}}</td>
                                     <td>
                                         @if($user->role == 0)
                                             <b class="out text-red-400">Out</b>
@@ -33,9 +33,17 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="/product/store" method="post">
-                                            
-                                        </form>
+                                        
+                                            @if($user->role == 0)
+                                            <form action="/hireAgain/{{$user->id}}" method="get">
+                                                <button class="" type="submit">Hire Again</button>
+                                            </form>
+                                            @else
+                                            <form action="/account/{{$user->id}}/delete" method="get">
+                                                <button class="" type="submit">Delete Account</button>
+                                            </form>
+                                            @endif
+                                        
                                     </td>
 
                                 </tr>

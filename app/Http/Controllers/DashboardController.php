@@ -85,11 +85,10 @@ class DashboardController extends Controller
             $ext = $request->file('photo')->extension();
         }
 
-        
-
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
+        
         if(gettype($request->category) == "string"){
             $category = new Category();
             $category->name = $request->category;
@@ -124,6 +123,20 @@ class DashboardController extends Controller
     public function account(){
         $users = User::all();
         return view('dashboard.account',['users'=>$users]);
+    }
+
+    public function deleteAccount($id){
+        $user = User::find($id);
+        $user->role = 0;
+        $user->save();
+        return redirect('/account');
+    }
+
+    public function hire($id){
+        $user = User::find($id);
+        $user->role = 2;
+        $user->save();
+        return redirect('/account');
     }
 
     // public function stock(){
