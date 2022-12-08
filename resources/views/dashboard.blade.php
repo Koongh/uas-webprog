@@ -8,10 +8,13 @@
         <div class="w-full flex justify-end">
             <a href="/dashboard/new-product"><button class="bg-gray-200 hover:bg-gray-300 rounded p-2">Add New Product</button></a>
         </div>
-        <div class="px-3 py-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="w-full justify-center items-center">
+            <input id="search" class="w-full" value="" onchange="UpdateInput(this.value)" />
+        </div>
+        <div  class="px-3 py-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach($items as $item)
                             
-                <div class="relative bg-white max-w-sm w-80 h-90 rounded overflow-hidden shadow-lg">
+                <div  class="items-card relative bg-white max-w-sm w-80 h-90 rounded overflow-hidden shadow-lg">
                     <div class="flex flex-col relative items-end">
                         <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" class="dropdownMenuIconButton relative inline-flex items-center p-2 text-sm font-medium text-center text-black  rounded-lg" type="button"> 
                             <svg class="w-6 h-6 relative" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
@@ -41,7 +44,7 @@
                     
                     <div class="px-6 py-4">
                         <div>
-                            <b>{{$item->name}}</b>
+                            <b class="item-title">{{$item->name}}</b>
                         </div>
                         <div>
                             @if($item->discount > 0)
@@ -168,7 +171,7 @@
         <script>
             let hideElement = document.querySelectorAll(".dropdownDots");
            
-            console.log(document.querySelectorAll('.dropdownMenuIconButton'));
+           
             document.querySelectorAll('.dropdownMenuIconButton').forEach((element, index)=>{
                 element.addEventListener('click', ()=>{
                     hideElement.forEach((e, index2)=>{
@@ -184,6 +187,23 @@
             document.querySelectorAll(".text-unavailable").forEach((e,index)=>{
                 e.parentElement.parentElement.parentElement.classList.add("bg-gray-400");
             })
+
+            function UpdateInput(input){
+                document.querySelectorAll('.items-card').forEach((e, index)=>{
+                    e.classList.add("hidden");
+                })
+                
+                document.querySelectorAll('.item-title').forEach((e, index)=>{
+                    // console.log(input);
+                    // console.log(e.innerHTML);
+                    let check = e.innerHTML;
+                    if(check.includes(input)){
+                        console.log("berhasil");
+                        e.parentElement.parentElement.parentElement.classList.remove('hidden');
+                    }
+                    
+                })
+            }
 
             
 

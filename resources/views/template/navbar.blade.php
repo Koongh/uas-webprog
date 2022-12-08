@@ -44,7 +44,10 @@
         <div id="profileBtn" class="relative ml-3">
             <div>
                 <button type="button" class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <!-- <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""> -->
+                <div id="profileImage" class="text-white w-8 h-8 flex justify-center items-center border-red-400 bg-red-500 rounded-full" >
+                  {{substr(Auth::user()->name, 0,1)}}
+                </div>
                 </button>
             </div>
             <div id="profileMenu" class="absolute hidden right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
@@ -86,6 +89,8 @@
     document.querySelector("#ProfileBurgerMenu").addEventListener("click", () =>{
         ProfileMobileMenu.classList.contains("hidden") ? ProfileMobileMenu.classList.remove('hidden') : ProfileMobileMenu.classList.add('hidden') ;
     })
+
+    
 
     
 </script>
