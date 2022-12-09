@@ -84,9 +84,16 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                </div>
                             </div>
+                            <div>
+                                <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                    Compatible with
+                                </label>
+                                @foreach ($motorcycles as $motorcycle)
+                                    <input class="form-check-input ml-2 mt-2 mb-2 mr-2" type="checkbox" name="motorcycles[]" value="{{$motorcycle->id}}" @if (in_array($motorcycle->id, $item->motorcycles->pluck('id')->toArray())) checked @endif> {{$motorcycle->name}} <br>
+                                @endforeach
                             </div>
-                            
                             <div class="">
                                 <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Photo

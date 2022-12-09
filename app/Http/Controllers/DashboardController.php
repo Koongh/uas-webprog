@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Motorcycle;
 use Storage;
 
 class DashboardController extends Controller
@@ -25,7 +26,8 @@ class DashboardController extends Controller
     public function edit($id){
         $item = Item::findOrFail($id);
         $categories = Category::all();
-        return view('dashboard.edit', ['item'=>$item, 'categories'=>$categories]);
+        $motorcycles = Motorcycle::all();
+        return view('dashboard.edit', ['item'=>$item, 'categories'=>$categories, 'motorcycles'=>$motorcycles]);
     }
 
     public function show($id)
@@ -44,6 +46,7 @@ class DashboardController extends Controller
             'description' => 'required',
             'manufacturer' => 'required',
             'category' => 'required',
+            'motorcycles' => 'required',
             'photo' => 'image'
         ]);
         
@@ -62,6 +65,7 @@ class DashboardController extends Controller
         $item->manufacturer = $request->manufacturer;
         $item->category_id = $request->category;
         $item->photo = $path;
+        $item->motorcycles()->sync($request->motorcycles);
         $item->save();
         return redirect('/dashboard');
     }
@@ -75,6 +79,7 @@ class DashboardController extends Controller
             'description' => 'required|string',
             'manufacturer' => 'required',
             'category' => 'required',
+            'motorcycles' => 'required',
             'photo' => 'image'
         ]);
         
@@ -102,15 +107,17 @@ class DashboardController extends Controller
         $item->discount = $request->discount;
         $item->description = $request->description;
         $item->manufacturer = $request->manufacturer;
-        
+
         $item->photo = $path;
         $item->save();
+        $item->motorcycles()->sync($request->motorcycles);
         return redirect('/dashboard');
     }
 
     public function create(){
         $categories = Category::all();
-        return view('dashboard.create',['categories'=>$categories]);
+        $motorcycles = Motorcycle::all();
+        return view('dashboard.create',['categories'=>$categories, 'motorcycles'=>$motorcycles]);
     }
 
     public function delete($id){
