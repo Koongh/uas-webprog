@@ -2,11 +2,38 @@
 
 <!-- link css external -->
 @section('custom-css')
-<!-- contoh untuk public -->
-<!-- <link rel="stylesheet" href="{{asset('css/home.css')}}" /> -->
-
-<!-- contoh untuk resource -->
-<!-- <link rel="stylesheet" href="../../css/home.css" /> -->
+<style>
+    .btn-copy:hover .copy{
+        visibility: visible;
+        opacity: 1;
+        z-index: 50!important;
+        
+    }
+    .copy{
+        width: 140px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        z-index: 50!important;
+        bottom: 150%;
+        left: 50%;
+        margin-left: -75px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .copy::after{
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -20,7 +47,13 @@
 
         </div>
         <div class="bg-white rounded-xl p-4 md:w-2/3 ">
-            <div>
+            <div class="flex justify-end px-8">
+                <button class="btn-copy relative" onmouseout="outFunc()" onclick="CopyFunction()">
+                    <span class="copy invisible absolute"></span>
+                    <i class="fa-solid fa-share-nodes text-2xl"></i>
+                </button>
+            </div>
+            <div class="">
                 <b class="text-3xl">{{$item->name}}</b> 
                 <h3 class="text-2xl"><b>Harga:</b> Rp. {{$price = number_format($item->price,2,',','.');}}</h3> <br>
             </div>
@@ -29,7 +62,7 @@
             <b>Compatible with:</b>
             <div class="px-3 py-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach($item->motorcycles as $motorcycle)
-                <div class="max-w-sm w-25 h-30 bg-white rounded overflow-hidden shadow-lg">
+                <div class="max-w-sm w-25 py-4 h-30 bg-gray-100 rounded overflow-hidden shadow-lg">
                     <div class="w-full overflow-hidden flex justify-center" width="10rem" style="height: 5rem">
                         <img src="{{asset('storage/'.$motorcycle->photo)}}" /></br>
                     </div>
@@ -52,6 +85,16 @@
 <!-- Script javascriptnya disini gais -->
 @section('custom-js')
 <script>
+    function CopyFunction(){
+        let copyLink = "{{url()->current()}}"
+        navigator.clipboard.writeText(copyLink);
+        var copy = document.querySelector(".copy");
+        copy.innerHTML = "Link Copied!"
+    }
 
+    function outFunc(){
+        let copy = document.querySelector('.copy');
+        copy.innerHTML = "Copy to clipboard";
+    }
 </script>
 @endsection

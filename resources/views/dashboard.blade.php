@@ -10,6 +10,10 @@
                 <div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
                     <a href="/dashboard/new-product"><button class="mb-5 text-white w-96 bg-blue-600 hover:shadow-lg focus:bg-blue-700 rounded p-2">Add New Product</button></a>
                     <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
+                    <div class="mt-4">
+                        <button class="bg-blue-500 text-white p-4 showAll-btn rounded-lg" onClick="ShowAll()" >Show All</button>
+                        <button class="bg-gray-200 p-4 discount-btn rounded-lg" onClick="SearchDiscount()">Discount</button>
+                    </div>  
                 </div>
             </div>
         </div>
@@ -50,7 +54,7 @@
                         </div>
                         <div>
                             @if($item->discount > 0)
-                            <strike>Rp.{{$item->price}}</strike> <b>Rp.{{$item->price-$item->price*$item->discount}}</b>
+                            <strike>Rp.{{$item->price}}</strike> <b class="discount">Rp.{{$item->price-$item->price*$item->discount}}</b>
                             @else 
                             <b>Rp.{{$item->price}}</b>
                             
@@ -191,6 +195,9 @@
             })
 
             function UpdateInput(input){
+                document.querySelector('.showAll-btn').classList.remove("bg-blue-500", "text-white");
+                document.querySelector('.showAll-btn').classList.add('bg-gray-200');
+
                 document.querySelectorAll('.items-card').forEach((e, index)=>{
                     e.classList.add("hidden");
                 })
@@ -207,8 +214,29 @@
                 })
             }
 
-            
+            function SearchDiscount(){
+                document.querySelector('.showAll-btn').classList.remove("bg-blue-500", "text-white");
+                document.querySelector('.showAll-btn').classList.add('bg-gray-200');
+                document.querySelector('.discount-btn').classList.remove('bg-gray-200');
+                document.querySelector('.discount-btn').classList.add("bg-blue-500", "text-white");
+                document.querySelectorAll('.items-card').forEach((e, index)=>{
+                    e.classList.add("hidden");
+                })
 
+                document.querySelectorAll('.discount').forEach((e, index)=>{
+                    e.parentElement.parentElement.parentElement.classList.remove('hidden');
+                })
+            }
+
+            function ShowAll(){
+                document.querySelector('.discount-btn').classList.remove("bg-blue-500", "text-white");
+                document.querySelector('.showAll-btn').classList.remove('bg-gray-200');
+                document.querySelector('.showAll-btn').classList.add("bg-blue-500", "text-white");
+
+                document.querySelectorAll('.items-card').forEach((e, index)=>{
+                    e.classList.remove('hidden');
+                })
+            }
         </script>
 
         

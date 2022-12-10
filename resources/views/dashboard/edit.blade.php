@@ -8,12 +8,16 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-6 bg-white flex flex-col justify-center item-center md:flex-row overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex justify-center w-full md:w-1/2 lg:w-1/3 h-80">
-                    @if($item->photo != null)
-                        <img id="preview-image" class="w-80" src="{{asset('storage/'.$item->photo)}}" />
-                    @else
-                        <img id="preview-image" class="w-80" src="{{asset('storage/photos/corrupt.png')}}" />
-                    @endif
+                <div class="flex relative justify-center w-full md:w-1/2 lg:w-1/3 h-80">
+                    <div class="fixed">
+                        @if($item->photo != null)
+                            <img id="preview-image" class="w-80" src="{{asset('storage/'.$item->photo)}}" />
+                        @else
+                            <img id="preview-image" class="w-80" src="{{asset('storage/photos/corrupt.png')}}" />
+                        @endif
+
+                    </div>
+                    
                 </div>
                 <div class="text-gray-900 md:w-1/2 lg:w-2/3">
                     <form class="w-full " action="/product/{{$item->id}}}/update" method="post" enctype="multipart/form-data">
@@ -90,9 +94,13 @@
                                 <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Compatible with
                                 </label>
-                                @foreach ($motorcycles as $motorcycle)
+                                <div class="grid grid-cols-4 gap-2">
+                                    @foreach ($motorcycles as $motorcycle)
+                                    <div class="mt-1">
                                     <input class="form-check-input ml-2 mt-2 mb-2 mr-2" type="checkbox" name="motorcycles[]" value="{{$motorcycle->id}}" @if (in_array($motorcycle->id, $item->motorcycles->pluck('id')->toArray())) checked @endif> {{$motorcycle->name}} <br>
-                                @endforeach
+                                    </div>
+                                    @endforeach
+                                </div>  
                             </div>
                             <div class="">
                                 <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">

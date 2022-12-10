@@ -15,6 +15,7 @@
 
 
 <!-- UJI COBA -->
+
 <div class="
             flex 
             flex-col 
@@ -107,8 +108,8 @@
                 <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
             </div>
             <div class="mt-4">
-                <button class="bg-blue-500 text-white p-4 showAll-btn" onClick="ShowAll()" >Show All</button>
-                <button class="bg-gray-200 p-4 discount-btn" onClick="SearchDiscount()">Discount</button>
+                <button class="bg-blue-500 text-white p-4 showAll-btn rounded-lg" onClick="ShowAll()" >Show All</button>
+                <button class="bg-gray-200 p-4 discount-btn rounded-lg" onClick="SearchDiscount()">Discount</button>
             </div>  
         </div>
 
@@ -151,6 +152,9 @@
                         </div>
                 @endforeach
         </div>
+    </div>
+    <div class="w-20 h-20 fixed bottom-0 right-4 rounded-full overflow-hidden">
+        <a href="https://www.tokopedia.com/kspec-olstore?source=universe&st=product"><img src="img/tokped.png" /></a>
     </div>
     <!----- End of Catalogue ----->
     
