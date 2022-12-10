@@ -31,6 +31,12 @@
             </tr>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td>{{$sum}}</td>
+        </tr>
+    </tfoot>
 </table>
     
 @endsection

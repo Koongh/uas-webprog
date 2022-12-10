@@ -19,6 +19,7 @@ class CashierController extends Controller
         $items_lists = $request->items_lists;
         $items_lists = preg_split('/\//', $items_lists, -1, PREG_SPLIT_NO_EMPTY);
         $order_id = DB::table('item_user')->max('id');
+        $sum = 0;
         if(!$order_id) $order_id = 1;
         else $order_id++;
 
@@ -27,6 +28,7 @@ class CashierController extends Controller
             $items_lists[$i] = preg_split('/#|@/', $items_lists[$i], -1, PREG_SPLIT_NO_EMPTY);
         }
 
+        //update item_user table
         foreach($items_lists as $item){
             DB::table('item_user')->insert([
                 'id' => $order_id,
@@ -37,8 +39,9 @@ class CashierController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
+            $sum += $item[2];
         }
-
+        
         foreach($items_lists as $key => $item_list){
             $item = Item::findOrFail($item_list[0]);
             $item->stock -= $item_list[1];
@@ -47,6 +50,7 @@ class CashierController extends Controller
             $items_lists[$key][4] = $item->price;
         }
 
-        return view('cashier.nota', ['id' => $order_id, 'items_lists' => $items_lists]);
+        $sum = "Rp " . number_format($sum, 2, ',', '.');
+        return view('cashier.nota', ['id' => $order_id, 'items_lists' => $items_lists, 'sum' => $sum]);
     }
 }
