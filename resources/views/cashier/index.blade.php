@@ -61,11 +61,11 @@
         
     </div>
     <!-- form dan submit buttonnya -->
-    <div class="flex   items-end px-4">
-        <form action="/cashier" method="post">
+    <div class="flex items-end px-4">
+        <form action="/cashier" onsubmit="confirmCheckout(this)" method="post">
             @csrf
             <input type="text" name="items_lists" id="items_lists" hidden/>
-            <button class="bg-green-300 disabled:bg-red-300 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full" id="checkout" type="button" disabled onclick="confirmCheckout()" >Keranjang Kosong</button>
+            <button type="submit" class="bg-green-300 disabled:bg-red-300 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full" id="checkout" type="button"  >Keranjang Kosong</button>
         </form>
     </div>
 
@@ -77,8 +77,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // ini buat panggil alertnya
-    function confirmCheckout() {
-        let $form = $(this).closest('form');
+    function confirmCheckout(form) {
         Swal.fire({
             title: 'Apakah anda yakin?',
             text: "Pastikan barang yang akan dibeli sudah benar!",
@@ -89,7 +88,13 @@
             confirmButtonText: 'Ya, saya yakin!'
         }).then((result) => {
             if (result.isConfirmed) {
-                $form.submit();
+                form.submit();
+                Swal.fire(
+                'Product Edited!',
+                'Your product has been edited!.',
+                'success'
+                )
+
             }
         })
     }
