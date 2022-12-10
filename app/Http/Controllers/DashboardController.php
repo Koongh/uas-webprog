@@ -93,16 +93,15 @@ class DashboardController extends Controller
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
-        
-        if(gettype($request->category) == "string"){
-            $category = new Category();
-            $category->name = $request->category;
-            $category->save();
+        // if(gettype($request->category) == "string"){
+        //     $category = new Category();
+        //     $category->name = $request->category;
+        //     $category->save();
 
-            $item->category_id = $category->id;
-        }else{
+        //     $item->category_id = $category->id;
+        // }else{
             $item->category_id = $request->category;
-        }
+        // }
         $item->stock = $request->stock;
         $item->discount = $request->discount;
         $item->description = $request->description;

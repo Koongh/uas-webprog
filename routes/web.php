@@ -1,16 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
-//List of Models used
-// use App\Models\Item;
-// use App\Models\Motorcycle;
-// use App\Models\Category;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,11 +40,15 @@ Route::controller(HomeController::class)->group(function(){
     // Route::get('discount', '');
 });
 
-
 Route::get("/about-us", function(){
     return view('aboutUs');
 });
 
+//!!!!RAPIHIN
+Route::controller(CashierController::class)->middleware('auth')->group(function(){
+    Route::get('/cashier', 'index');
+    Route::post('/cashier', 'store');
+});
 
 Route::middleware('auth', 'fired')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
