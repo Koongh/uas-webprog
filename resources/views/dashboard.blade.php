@@ -5,11 +5,13 @@
         </h2>
     </x-slot>
     <div class="flex flex-col items-center justify-center p-4">
-        <div class="w-full flex justify-end">
-            <a href="/dashboard/new-product"><button class="bg-gray-200 hover:bg-gray-300 rounded p-2">Add New Product</button></a>
-        </div>
-        <div class="w-full justify-center items-center">
-            <input id="search" class="w-full" value="" onchange="UpdateInput(this.value)" />
+        <div class="w-96 justify-center items-center">
+            <div class="mb-3 w-full">
+                <div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
+                    <a href="/dashboard/new-product"><button class="mb-5 text-white w-96 bg-blue-600 hover:shadow-lg focus:bg-blue-700 rounded p-2">Add New Product</button></a>
+                    <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
+                </div>
+            </div>
         </div>
         <div  class="px-3 py-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach($items as $item)
