@@ -101,10 +101,22 @@
         >OUR CATALOGUE</h1>
     <hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700">
     <!----- Catalogue ----->
-    <div class="w-full flex justify-center">
+    <div class="w-full flex justify-center flex-col items-center">
+        <div class="w-full px-40 justify-center items-center">
+            <div>
+                <label>Search Product</label>
+                <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
+
+            </div>
+            <div class="mt-4">
+                <button class="bg-blue-500 text-white p-4 showAll-btn" onClick="ShowAll()" >Show All</button>
+                <button class="bg-gray-200 p-4 discount-btn" onClick="SearchDiscount()">Discount</button>
+            </div>  
+        </div>
+
         <div class="px-3 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach($items as $item)
-                        <div class="max-w-sm w-80 h-90 bg-white rounded overflow-hidden shadow-lg">
+                        <div class="items-card max-w-sm w-80 h-90 bg-white rounded overflow-hidden shadow-lg">
                             <a href="/home/{{$item->id}}">
                             <div class="w-full overflow-hidden flex justify-center" width="50rem" style="height: 20rem">
                                 @if($item->photo != null)
@@ -115,11 +127,11 @@
                             </div>
                             <div class="px-6 py-4">
                                 <div>
-                                    <b>{{$item->name}}</b>
+                                    <b class="item-title">{{$item->name}}</b>
                                 </div>
                                 <div>
                                     @if($item->discount > 0)
-                                    <strike>Rp.{{$item->price}}</strike> <b>Rp.{{$item->price-$item->price*$item->discount}}</b>
+                                    <strike>Rp.{{$item->price}}</strike> <b class="discount">Rp.{{$item->price-$item->price*$item->discount}}</b>
                                     @else 
                                     <b>Rp.{{$item->price}}</b>
                                     
@@ -147,6 +159,46 @@
 <!-- Script javascriptnya disini gais -->
 @section('custom-js')
 <script>
+function UpdateInput(input){
+    document.querySelector('.showAll-btn').classList.remove("bg-blue-500", "text-white");
+    document.querySelector('.showAll-btn').classList.add('bg-gray-200');
 
+    document.querySelectorAll('.items-card').forEach((e, index)=>{
+        e.classList.add("hidden");
+    })
+    
+    document.querySelectorAll('.item-title').forEach((e, index)=>{
+        // console.log(input);
+        // console.log(e.innerHTML);
+        let check = e.innerHTML;
+        if(check.includes(input)){
+            console.log("berhasil");
+            e.parentElement.parentElement.parentElement.parentElement.classList.remove('hidden');
+        }
+        
+    })
+}
+
+function SearchDiscount(){
+    document.querySelector('.showAll-btn').classList.remove("bg-blue-500", "text-white");
+    document.querySelector('.showAll-btn').classList.add('bg-gray-200');
+    document.querySelector('.discount-btn').classList.add("bg-blue-500", "text-white");
+    document.querySelectorAll('.items-card').forEach((e, index)=>{
+        e.classList.add("hidden");
+    })
+
+    document.querySelectorAll('.discount').forEach((e, index)=>{
+        e.parentElement.parentElement.parentElement.parentElement.classList.remove('hidden');
+    })
+}
+
+function ShowAll(){
+    document.querySelector('.discount-btn').classList.remove("bg-blue-500", "text-white");
+    document.querySelector('.showAll-btn').classList.add("bg-blue-500", "text-white");
+
+    document.querySelectorAll('.items-card').forEach((e, index)=>{
+        e.classList.remove('hidden');
+    })
+}
 </script>
 @endsection
