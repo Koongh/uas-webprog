@@ -8,13 +8,16 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <span class="text-xl font-bold bg-sky-500 py-3 px-6 text-white rounded-r-md ">
+                Create Product 
+            </span>
                 <div class="p-6 text-gray-900">
                     <form class="w-full " action="/product/store" method="post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="mb-6 flex flex-col">
                             <div class="md:flex md:space-x-4">
-                                <div class="md:w-1/2">
+                                <div class="md:w-1/2 mb-4">
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                         Product Name
                                     </label>
@@ -28,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="md:flex md:space-x-4">
-                                <div class="md:w-1/2">
+                                <div class="md:w-1/2 mb-4">
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                         Stock
                                     </label>
@@ -41,7 +44,7 @@
                                     <input name="discount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('discount') }}">
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="mb-4">
                                 <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Description
                                 </label>
@@ -66,24 +69,28 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                <label class="block text-gray-500 font-bold  mt-4 mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Compatible with
                                 </label>
-                                @foreach ($motorcycles as $motorcycle)
-                                    <input class="form-check-input ml-2 mt-2 mb-2 mr-2" type="checkbox" name="motorcycles[]" value="{{$motorcycle->id}}"> {{$motorcycle->name}} <br>
-                                @endforeach
+                                <div class="grid grid-cols-4 gap-2">
+                                    @foreach ($motorcycles as $motorcycle)
+                                    <div class="mt-1">
+                                    <input class="form-check-input ml-2 mt-2 mb-2 mr-2" type="checkbox" name="motorcycles[]" value="{{$motorcycle->id}}"> {{$motorcycle->name}}  
+                                    </div>
+                                    @endforeach
+                                </div>  
                             </div>
                             <div class="">
-                                <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4 mt-4" for="inline-full-name">
                                     Photo
                                 </label>
                                 <input id="image" type="file" name="photo" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" />
                             </div>
                             <div class="">
-                                <img class="hidden w-full" id="preview-image" src="" alt="preview-image" />
+                                <img class="hidden" id="preview-image" src="" alt="preview-image" />
                             </div>
                             <div class="flex justify-end mt-4">
-                                <button class="shadow bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                                <button class="shadow bg-blue-600 hover:shadow-lg focus:bg-blue-700 rounded text-white font-bold py-2 px-4 rounded" type="submit">
                                     Submit
                                 </button>
                             </div>
