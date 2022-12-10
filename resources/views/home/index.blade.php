@@ -104,9 +104,7 @@
     <div class="w-full flex justify-center flex-col items-center">
         <div class="w-full px-40 justify-center items-center">
             <div>
-                <label>Search Product</label>
                 <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
-
             </div>
             <div class="mt-4">
                 <button class="bg-blue-500 text-white p-4 showAll-btn" onClick="ShowAll()" >Show All</button>
@@ -131,14 +129,18 @@
                                 </div>
                                 <div>
                                     @if($item->discount > 0)
-                                    <strike>Rp.{{$item->price}}</strike> <b class="discount">Rp.{{$item->price-$item->price*$item->discount}}</b>
+                                    <strike>Rp.{{number_format($item->price, 2, ',', '.')}}</strike> <b class="discount">Rp.{{number_format($item->price-$item->price*$item->discount, 2, ',', '.')}}</b>
                                     @else 
-                                    <b>Rp.{{$item->price}}</b>
+                                    <b>Rp.{{number_format($item->price, 2, ',', '.')}}</b>
                                     
                                     @endif
                                 </div>
                                 <div>
-                                    <b>Stok : {{$item->stock}}</b>
+                                    @if($item->stock > 0)
+                                        <b>Stok : {{$item->stock}}</b>
+                                    @else
+                                        <b class="text-red-500">Stok : Out Of Stock</b>
+                                    @endif
                                 </div>
                                 <div class=" pt-4 pb-2">
                                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> {{$item->category->name}} </span>
