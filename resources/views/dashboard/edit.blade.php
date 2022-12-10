@@ -4,12 +4,13 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-6 bg-white flex flex-col justify-center item-center md:flex-row overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex relative justify-center w-full md:w-1/2 lg:w-1/3 h-80">
-                    <div class="fixed">
+                    <div class="md:fixed">
                         @if($item->photo != null)
                             <img id="preview-image" class="w-80" src="{{asset('storage/'.$item->photo)}}" />
                         @else
@@ -20,7 +21,7 @@
                     
                 </div>
                 <div class="text-gray-900 md:w-1/2 lg:w-2/3">
-                    <form class="w-full " action="/product/{{$item->id}}}/update" method="post" enctype="multipart/form-data">
+                    <form class="w-full " name="edit-product{{$item->id}}-form" action="/product/{{$item->id}}}/update" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this)">
                         @method('PUT')
                         @csrf
                         <div class="w-full md:items-center mb-6">
@@ -97,7 +98,7 @@
                                 <div class="grid grid-cols-4 gap-2">
                                     @foreach ($motorcycles as $motorcycle)
                                     <div class="mt-1">
-                                    <input class="form-check-input ml-2 mt-2 mb-2 mr-2" type="checkbox" name="motorcycles[]" value="{{$motorcycle->id}}" @if (in_array($motorcycle->id, $item->motorcycles->pluck('id')->toArray())) checked @endif> {{$motorcycle->name}} <br>
+                                        <input class="form-check-input ml-2 mt-2 mb-2 mr-2" type="checkbox" name="motorcycles[]" value="{{$motorcycle->id}}" @if (in_array($motorcycle->id, $item->motorcycles->pluck('id')->toArray())) checked @endif> {{$motorcycle->name}} <br>
                                     </div>
                                     @endforeach
                                 </div>  
@@ -169,5 +170,28 @@
                 reader.readAsDataURL(this.files[0]);
             })
         })
+
+    function submitForm(form) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to edit the product?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, edit it!'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+            form.submit();
+            Swal.fire(
+            'Product Edited!',
+            'Your product has been edited!.',
+            'success'
+            )
+        }
+        });
+        return false;
+    }
 </script>
 </x-app-layout>

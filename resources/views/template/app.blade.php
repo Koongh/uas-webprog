@@ -39,7 +39,7 @@
     <!-- Jquery 4 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Sweetalert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Swiper -->
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script> 
     <script type="text/javascript">

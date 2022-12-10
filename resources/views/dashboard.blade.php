@@ -32,8 +32,8 @@
                                     <a href="/product/{{$item->id}}/edit" class="block ">Edit</a>
                                 </li>
                                 <li class="bg-gray-300 hover:bg-gray-200">
-                                    <form class="block" action="/product/{{$item->id}}/delete"  method="get">
-                                        <button  onclick="submitForm()" type="submit">Delete Product</button>
+                                    <form id="form-delete" name="form-delete-{{$item->id}}" class="block" onclick="submitForm()" action="/product/{{$item->id}}/delete" method="get">
+                                        <button   type="submit">Delete Product</button>
                                     </form>
                                 </li>
                             </ul>
@@ -240,30 +240,34 @@
             }
 
             function submitForm() {
-            event.preventDefault();
-            var form = event.target.form;
-            Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!' 
-            },
-            )
-            .then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-                )
+                event.preventDefault();
+                let form = event.target.form;
+
+                if(form){
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!' 
+                    },
+                    )
+                    .then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                        Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                        )
+                    }
+                    });
+                    return false;
+                }
+                
             }
-            });
-            return false;
-        }
-        
         </script>
 
         
