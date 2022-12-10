@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo" class="w-full flex justify-center">
-            <a href="/">
+        <x-slot name="logo" >
+            <a href="/" class="rounded-full overflow-hidden">
                 <img class="w-20 h-20 fill-current text-gray-500" src="{{ asset('img/logo.jpg')}}" />
             </a>
         </x-slot>
@@ -40,14 +40,14 @@
             </div>
 
             <div class="flex flex-col justify-start mt-4">
-                @if (Route::has('password.request'))
+                <!-- @if (Route::has('password.request'))
                 <div class="flex justify-end">
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 </div>
                     
-                @endif
+                @endif -->
                 <x-primary-button class="justify-center">
                     {{ __('Log in') }}
                 </x-primary-button>
