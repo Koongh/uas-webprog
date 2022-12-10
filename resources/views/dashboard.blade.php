@@ -4,6 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="flex flex-col items-center justify-center p-4">
         <div class="w-96 justify-center items-center">
             <div class="mb-3 w-full">
@@ -31,15 +32,15 @@
                                     <a href="/product/{{$item->id}}/edit" class="block ">Edit</a>
                                 </li>
                                 <li class="bg-gray-300 hover:bg-gray-200">
-                                    <form class="block" action="/product/{{$item->id}}/delete" method="get">
-                                        <button type="submit">Delete Product</button>
+                                    <form class="block" action="/product/{{$item->id}}/delete"  method="get">
+                                        <button  onclick="submitForm()" type="submit">Delete Product</button>
                                     </form>
                                 </li>
                             </ul>
                         </div> 
 
                     </div>
-                     
+            
                     <div class="w-full overflow-hidden flex justify-center px-4" width="50rem" style="height: 20rem">
                         @if($item->photo != null)
                             <img loading="lazy" class="rounded-lg" src="{{asset('storage/'.$item->photo)}}" />
@@ -237,6 +238,32 @@
                     e.classList.remove('hidden');
                 })
             }
+
+            function submitForm() {
+            event.preventDefault();
+            var form = event.target.form;
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!' 
+            },
+            )
+            .then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+            }
+            });
+            return false;
+        }
+        
         </script>
 
         

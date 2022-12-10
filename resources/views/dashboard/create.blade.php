@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -12,7 +12,7 @@
                 Create Product 
             </span>
                 <div class="p-6 text-gray-900">
-                    <form class="w-full " action="/product/store" method="post" enctype="multipart/form-data">
+                    <form class="w-full " action="/product/store" method="post" onsubmit="return submitForm(this)"  enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="mb-6 flex flex-col">
@@ -38,7 +38,7 @@
                                     <input name="stock" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('stock') }}">
                                 </div>
                                 <div class="md:w-1/2">
-                                    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name" required>
                                         Discount
                                     </label>
                                     <input name="discount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('discount') }}">
@@ -113,5 +113,27 @@
                 reader.readAsDataURL(this.files[0]);
             })
         })
+        function submitForm(form) {
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to create the new product?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, create it!'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                form.submit();
+                Swal.fire(
+                'Product Created!',
+                'Your product has been created!.',
+                'success'
+                )
+            }
+            });
+            return false;
+        }
     </script>
 </x-app-layout>
