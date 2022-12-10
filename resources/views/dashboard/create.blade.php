@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -12,7 +12,7 @@
                 Create Product 
             </span>
                 <div class="p-6 text-gray-900">
-                    <form class="w-full " action="/product/store" method="post" onsubmit="return submitForm(this)"  enctype="multipart/form-data">
+                    <form id="createForm" class="w-full " action="/product/store" method="post" onsubmit="return submitForm(this)"  enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="mb-6 flex flex-col">
@@ -21,13 +21,13 @@
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                         Product Name
                                     </label>
-                                    <input name="name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('name') }}">
+                                    <input required name="name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('name') }}">
                                 </div>
                                 <div class="md:w-1/2">
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                         Price
                                     </label>
-                                    <input name="price" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('price') }}">
+                                    <input required onkeypress="return validateNumber(event)" name="price" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('price') }}">
                                 </div>
                             </div>
                             <div class="md:flex md:space-x-4">
@@ -35,17 +35,18 @@
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                         Stock
                                     </label>
-                                    <input name="stock" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('stock') }}">
+                                    <input required onkeypress="return validateNumber(event)" id="stock" name="stock" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('stock') }}">
                                 </div>
                                 <div class="md:w-1/2">
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name" required>
                                         Discount
                                     </label>
-                                    <input name="discount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('discount') }}">
+                                    <input required id="discount" onkeypress="return validateNumber(event)" name="discount" 
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('discount') }}">
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                <label required class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                     Description
                                 </label>
                                 <textarea name="description" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" >{{old('description') }}</textarea>
@@ -55,7 +56,7 @@
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
                                         Manufacturer
                                     </label>
-                                    <input name="manufacturer" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('manufacturer') }}">
+                                    <input required name="manufacturer" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="{{old('manufacturer') }}">
                                 </div>
                                 <div class="md:w-1/2">
                                     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
@@ -63,7 +64,7 @@
                                     </label>
                                     <select name="category" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" name="category" >
                                         @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <option required value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -114,6 +115,7 @@
             })
         })
         function submitForm(form) {
+        
             Swal.fire({
             title: 'Are you sure?',
             text: "Do you want to create the new product?",
@@ -135,5 +137,11 @@
             });
             return false;
         }
+        function validateNumber(e) {
+            const pattern = /^[0-9]$/;
+
+            return pattern.test(e.key )
+        }
+
     </script>
 </x-app-layout>
