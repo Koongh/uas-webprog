@@ -31,11 +31,11 @@
             absolute
             mix-blend-overlay
             "/>
-            <div class="p-24 my-40">
+            <div class="p-16 md-p-24 my-40">
                 <h1 class=" 
                     text-slate-50 
                     text-center 
-                    mr-7 
+                    md-mr-7 
                     text-5xl
                     font-extrabold text-transparent bg-clip-text bg-gradient-to-l  from-[#3FC1C9] to-[#F5F5F5]
                     stroke-black
@@ -108,9 +108,9 @@
                             <a href="/home/{{$item->id}}">
                             <div class="w-full overflow-hidden flex justify-center" width="50rem" style="height: 20rem">
                                 @if($item->photo != null)
-                                    <img  src="{{asset('storage/'.$item->photo)}}" />
+                                    <img loading="lazy" src="{{asset('storage/'.$item->photo)}}" />
                                 @else
-                                    <img  src="{{asset('storage/photos/corrupt.png')}}" />
+                                    <img loading="lazy" src="{{asset('storage/photos/corrupt.png')}}" />
                                 @endif
                             </div>
                             <div class="px-6 py-4">

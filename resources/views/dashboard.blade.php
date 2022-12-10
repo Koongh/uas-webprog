@@ -36,9 +36,9 @@
                      
                     <div class="w-full overflow-hidden flex justify-center px-4" width="50rem" style="height: 20rem">
                         @if($item->photo != null)
-                            <img class="rounded-lg" src="{{asset('storage/'.$item->photo)}}" />
+                            <img loading="lazy" class="rounded-lg" src="{{asset('storage/'.$item->photo)}}" />
                         @else
-                            <img  src="{{asset('storage/photos/corrupt.png')}}" />
+                            <img loading="lazy"  src="{{asset('storage/photos/corrupt.png')}}" />
                         @endif
                     </div>
                     
