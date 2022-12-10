@@ -41,7 +41,7 @@
             @endforeach
             </div>
             <b>Description:</b> <br>
-             <?php echo nl2br($item->description); ?> <br>
+            <p class="text-justify"> <?php echo preg_replace('/\./', '.<br>', $item->description) ?> </p><br>
         </div>
         
     </div>
