@@ -30,14 +30,16 @@
             <a href="/about-us" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Us</a>
             @if(!Auth::check())
                 <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                @can('gate_admin')
-                  <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create New Employee Account</a>
-                @endcan
+                
             @endif
+            @can('gate_admin')
+              <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create New Employee Account</a>
+            @endcan
 
           </div>
         </div>
       </div>
+      
       @can('gate_buat_check_login_apa_belom')
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <div id="profileBtn" class="relative ml-3">
@@ -65,14 +67,16 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="hidden" id="profile-mobile-menu">
+  <div class="hidden fixed" id="mobile-menu">
     <div class="space-y-1 px-2 pt-2 pb-3">
-        <a href="/" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Home</a>
-        <a href="/about-us" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">About Us</a>
-        @if (Route::has('login'))
-            <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
-            <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Create New Employee Account</a>
+        <a id="home" href="/" class="bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium" >Home</a>
+        <a id="about-us" href="/about-us" class="bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium" >About Us</a>
+        @if(!Auth::check())
+          <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
         @endif
+        @can('gate_admin')
+          <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Create New Employee Account</a>
+        @endcan
     </div>
   </div>
 </nav>
@@ -84,12 +88,15 @@
         profileMenu.classList.contains("hidden") ? profileMenu.classList.remove('hidden') : profileMenu.classList.add('hidden') ;
     })
 
-    let ProfileMobileMenu = document.querySelector("#profile-mobile-menu")
+    let ProfileMobileMenu = document.querySelector("#mobile-menu")
     document.querySelector("#ProfileBurgerMenu").addEventListener("click", () =>{
         ProfileMobileMenu.classList.contains("hidden") ? ProfileMobileMenu.classList.remove('hidden') : ProfileMobileMenu.classList.add('hidden') ;
     })
 
-    
-
+    if("{{Route::getFacadeRoot()->current()->uri();}}" == "/"){
+      console.log("{{Route::getFacadeRoot()->current()->uri();}}")
+      document.querySelector("#home").classList.remove("bg-gray-700");
+      document.querySelector("#home").classList.add("bg-gray-900");
+    }
     
 </script>
