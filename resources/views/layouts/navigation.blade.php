@@ -18,9 +18,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('cashier')" :active="request()->routeIs('cashier')">
+                        {{ __('Cashier') }}
+                    </x-nav-link>
                     @can('gate_admin')
-                    <x-nav-link :href="route('account')" >
+                    <x-nav-link :href="route('account')" :active="request()->routeIs('account')">
                         {{ __('Account Manager') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('register')">
+                        {{ __('Create New Account') }}
                     </x-nav-link>
                     @endcan
                 </div>
@@ -81,9 +87,17 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('cashier')" :active="request()->routeIs('cashier')">
+                {{ __('Cashier') }}
             </x-responsive-nav-link>
+            @can('gate_admin')
+            <x-responsive-nav-link :href="route('account')" :active="request()->routeIs('account')">
+                {{ __('Account Manager') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('register')">
+                {{ __('Create New Account') }}
+            </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

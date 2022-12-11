@@ -30,12 +30,13 @@
             <a href="/about-us" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Us</a>
             @if(!Auth::check())
                 <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                
             @endif
             @can('gate_admin')
-              <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create New Employee Account</a>
+                <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create New Employee Account</a>
             @endcan
-
+            @if(Auth::check())
+                <a href="/cashier" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Cashier</a>
+            @endif
           </div>
         </div>
       </div>
@@ -69,34 +70,36 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="hidden fixed" id="mobile-menu">
     <div class="space-y-1 px-2 pt-2 pb-3">
-        <a id="home" href="/" class="bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium" >Home</a>
-        <a id="about-us" href="/about-us" class="bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium" >About Us</a>
+        <a id="home" href="/" class="bg-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" >Home</a>
+        <a id="about-us" href="/about-us" class="bg-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" >About Us</a>
         @if(!Auth::check())
-          <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
+          <a href="/login" class="bg-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
         @endif
         @can('gate_admin')
-          <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Create New Employee Account</a>
+          <a href="/register" class="bg-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Create New Employee Account</a>
         @endcan
+        @if(Auth::check())
+          <a href="/cashier" class="bg-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Cashier</a>
+        @endif
     </div>
   </div>
 </nav>
 
 </header>
 <script>
-    let profileMenu = document.querySelector("#profileMenu")
-    document.querySelector("#profileBtn").addEventListener("click", () =>{
-        profileMenu.classList.contains("hidden") ? profileMenu.classList.remove('hidden') : profileMenu.classList.add('hidden') ;
-    })
+  let ProfileMobileMenu = document.querySelector("#mobile-menu")
+  document.querySelector("#ProfileBurgerMenu").addEventListener("click", () =>{
+    ProfileMobileMenu.classList.contains("hidden") ? ProfileMobileMenu.classList.remove('hidden') : ProfileMobileMenu.classList.add('hidden') ;
+  })
 
-    let ProfileMobileMenu = document.querySelector("#mobile-menu")
-    document.querySelector("#ProfileBurgerMenu").addEventListener("click", () =>{
-        ProfileMobileMenu.classList.contains("hidden") ? ProfileMobileMenu.classList.remove('hidden') : ProfileMobileMenu.classList.add('hidden') ;
-    })
-
-    if("{{Route::getFacadeRoot()->current()->uri();}}" == "/"){
-      console.log("{{Route::getFacadeRoot()->current()->uri();}}")
-      document.querySelector("#home").classList.remove("bg-gray-700");
-      document.querySelector("#home").classList.add("bg-gray-900");
-    }
-    
+  if("{{Route::getFacadeRoot()->current()->uri();}}" == "/"){
+    console.log("{{Route::getFacadeRoot()->current()->uri();}}")
+    document.querySelector("#home").classList.remove("bg-gray-700");
+    document.querySelector("#home").classList.add("bg-gray-900");
+  }
+  
+  let profileMenu = document.querySelector("#profileMenu")
+  document.querySelector("#profileBtn").addEventListener("click", () =>{
+      profileMenu.classList.contains("hidden") ? profileMenu.classList.remove('hidden') : profileMenu.classList.add('hidden') ;
+  })
 </script>

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Page Title -->
-    <title>KSPEC STORE</title>
+    <title>KSPECMOTOR</title>
+    <!-- Tab Icon -->
+    <link rel="icon" href="{{ asset('img/logo2.png')}}" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS -->
