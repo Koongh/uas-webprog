@@ -24,8 +24,11 @@ class DashboardController extends Controller
     public function index()
     {
         $items = Item::all();
-        $category = Category::all();
-        return view('dashboard', ['items' => $items]);
+        // $category = Category::all();
+        $countDisct = Item::where('discount', ">", 0)->get();
+        $countDisct = $countDisct->count();
+
+        return view('dashboard', ['items' => $items, 'countDisct' => $countDisct]);
     }
 
     public function edit($id){
@@ -124,10 +127,16 @@ class DashboardController extends Controller
         return view('dashboard.create',['categories'=>$categories, 'motorcycles'=>$motorcycles]);
     }
 
-    public function delete($id){
-        $item = Item::find($id);
+    public function unavailable($id){
+        $item = Item::findOrFail($id);
         $item->stock = 0;
         $item->save();
+        return redirect('/dashboard');
+    }
+
+    public function delete($id){
+        $item = Item::findOrFail($id);
+        $item->delete();
         return redirect('/dashboard');
     }
 

@@ -27,6 +27,7 @@ Route::controller(DashboardController::class)->middleware('auth', 'fired')->grou
     Route::match(['get', 'put'],'/product/{id}/update', 'update')->name('dashboard.edit');
     Route::get('/dashboard/new-product', 'create')->name('dashboard.create');
     Route::match(['get', 'put'],'/product/store', 'store')->name('dashboard.store');
+    Route::get('/product/{id}/unavailable', 'unavailable')->name('dashboard.unavailable');
     Route::get('/product/{id}/delete', 'delete')->name('dashboard.delete');
     Route::get('/account', 'account')->middleware('admin')->name('account');
     Route::get('/account/{id}/delete', 'deleteAccount')->name('deleteAccount');

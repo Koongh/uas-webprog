@@ -18,7 +18,9 @@ class HomeController extends Controller
     {
         $items = Item::all();
         // $category = Category::all();
-        return view('home.index', ['items' => $items]);
+        $countDisct = Item::where('discount', ">", 0)->get();
+        $countDisct = $countDisct->count();
+        return view('home.index', ['items' => $items, 'countDisct' => $countDisct]);
     }
 
     public function edit($id){

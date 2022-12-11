@@ -13,61 +13,72 @@
 @endsection
 
 @section('content')
-    <div class="products grid grid-cols-2 px-3 py-3 md:flex w-full space-x-4 space-y-4">
-        <table class="table w-full"  id="products_table">
-            <thead>
-                <tr>
-                    <th>Nama Produk</th>
-                    <th>Stok</th>
-                    <th>Harga</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($products as $product)
+<div class="flex w-full flex-col-reverse md:flex-row justify-evenly">
+    <div class="">
+        <div class="products grid grid-cols-2 px-3 py-3 md:flex w-full space-x-4 space-y-4">
+            <table class="table w-full"  id="products_table">
+                <thead>
                     <tr>
-                        <td>{{$product->name}}</td>
-                        <td>{{$product->stock}}</td>
-                        <td>{{$product->price}}</td>
-                        <td><button class="bg-blue-500 disabled:bg-gray-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onclick="addToCart({{$product->id}})" {{ $product->stock == 0 ? "disabled" : ""}}>Add to cart</button></td>
+                        <th>Nama Produk</th>
+                        <th>Stok</th>
+                        <th>Harga</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($products as $product)
+                        <tr>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->stock}}</td>
+                            <td>{{$product->price}}</td>
+                            <td><button class="bg-blue-500 disabled:bg-gray-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onclick="addToCart({{$product->id}})" {{ $product->stock == 0 ? "disabled" : ""}}>Add to cart</button></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class=" grid grid-cols-2 px-3 py-3 md:flex w-full space-x-4 space-y-4" border=1>
-        <table class="table w-full">
-            <thead>
-                <tr>
-                    <th>Del</th>
-                    <th>Qty</th>
-                    <th>Nama Item</th>
-                    <th>Harga</th>
-                    <th>Jumlah</th>
-                </tr>
-            </thead>
-            <tbody id="poscart">
-                <td class="text-center" colspan="5 ">
-                    <h1 class="text-center text-2xl font-bold text-gray-500" id="emptycart">Shopping Cart</h1></td>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">Total: </td>
-                    <td id="sum"></td>
-                </tr>
-            </tfoot>
-        </table>
-        
+    <div class="w-full md:w-1/2 overflow-hidden">
+        <div class="md:fixed bg-white rounded py-4 my-4 shadow">
+            <div class="px-3 py-3 md:flex w-full space-x-4 space-y-4" border=1>
+                <table class="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Del</th>
+                            <th>Qty</th>
+                            <th>Nama Item</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody id="poscart">
+                        <td class="text-center" colspan="5 ">
+                            <h1 class="text-center text-2xl font-bold text-gray-500" id="emptycart">Shopping Cart</h1></td>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Total: </td>
+                            <td id="sum"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="flex items-end px-4">
+                <form action="/cashier" onsubmit="return confirmCheckout(this)" method="post">
+                    @csrf
+                    <input type="text" name="items_lists" id="items_lists" hidden/>
+                    <button disabled type="submit" class="bg-green-300 disabled:bg-red-300 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full" id="checkout" type="button"  >Keranjang Kosong</button>
+                </form>
+            </div>
+
+        </div>
         
     </div>
+
+</div>
+    
     <!-- form dan submit buttonnya -->
-    <div class="flex items-end px-4">
-        <form action="/cashier" onsubmit="confirmCheckout(this)" method="post">
-            @csrf
-            <input type="text" name="items_lists" id="items_lists" hidden/>
-            <button type="submit" class="bg-green-300 disabled:bg-red-300 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full" id="checkout" type="button"  >Keranjang Kosong</button>
-        </form>
-    </div>
+    
 
 @endsection
 
@@ -96,10 +107,9 @@
                 )
 
             }
-        })
+        });
+        return false;
     }
-
-
 
     $(document).ready( function () {
         $('#products_table').DataTable();

@@ -36,11 +36,11 @@
                                         
                                             @if($user->role == 0)
                                             <form action="/hireAgain/{{$user->id}}" method="get">
-                                                <button class="" type="submit">Hire Again</button>
+                                                <button class="text-white bg-blue-400 hover:bg-blue-600 rounded p-2" type="submit">Hire Again</button>
                                             </form>
                                             @else
                                             <form action="/account/{{$user->id}}/delete" method="get">
-                                                <button class="" type="submit">Delete Account</button>
+                                                <button class="text-white bg-red-400 hover:bg-red-600 rounded p-2" type="submit">Delete Account</button>
                                             </form>
                                             @endif
                                         

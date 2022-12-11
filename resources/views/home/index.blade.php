@@ -59,21 +59,24 @@
     <!----- End of Header ----->
     <hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700">
     <!----- Map ----->
-    <section class="text-gray-600 body-font relative py-20">
-        <div class="absolute inset-0 bg-gray-300">
+    <section class="text-gray-600 body-font relative pt-40 md:py-20 w-full overflow-hidden">
+        <div class="absolute inset-0 bg-gray-300" >
             <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15864.011709614377!2d106.4225311!3d-6.2633432!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xea281a0543b3452a!2sKSPEC%20MOTOR!5e0!3m2!1sid!2sid!4v1670440594100!5m2!1sid!2sid" style="filter: contrast(1.2) opacity(0.75);"></iframe>
         </div>
-        <div class="container px-5 py-24 mx-auto flex">
-            <div class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+        <div class="container address-box pt-48 md:py-24 mx-auto flex" >
+            <div class="lg:w-1/3 md:w-1/3 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full md:mt-10 md:mt-0 relative z-10 shadow-md">
             <h1 class=" 
                     text-center 
                     text-4xl
-                    font-extrabold text-transparent bg-clip-text bg-gradient-to-l  from-[#3FC1C9] to-[#1f2937]
+                    font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-[#3FC1C9] to-[#1f2937]
                     ">
                         OUR STORE LOCATION
                 </h1>
                 <h2 class="
+                    address-detail
                     mt-5
+                    hidden
+                    md:block
                     text-gray-900 
                     text-lg mb-1 
                     text-center
@@ -81,6 +84,9 @@
                     title-font">Address
                 </h2>
                 <p class="
+                    address-detail
+                    hidden
+                    md:block
                     text-gray-900 
                     text-md mb-1 
                     text-center
@@ -103,19 +109,31 @@
     <hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700">
     <!----- Catalogue ----->
     <div class="w-full flex justify-center flex-col items-center">
-        <div class="w-full px-40 justify-center items-center">
+        <div class="w-full px-8 md:px-40 xl:px-80 justify-center items-center">
             <div>
                 <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
             </div>
             <div class="mt-4">
                 <button class="bg-blue-500 text-white p-4 showAll-btn rounded-lg" onClick="ShowAll()" >Show All</button>
-                <button class="bg-gray-200 p-4 discount-btn rounded-lg" onClick="SearchDiscount()">Discount</button>
+                <button class="bg-gray-200 p-4 relative discount-btn rounded-lg" onClick="SearchDiscount()">
+                    Discount
+                    <span class="absolute" style="top:-10px; right:-10px;">
+                            <span class="relative justify-center items-center text-white inline-flex rounded-full h-8 w-8 bg-sky-500">{{$countDisct}}</span>
+                    </span>
+                </button>
+                
             </div>  
         </div>
 
-        <div class="px-3 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div id="card-container" class="px-3 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                
+                <div class="discount-text hidden w-full flex justify-center items-center col-span-4" style="min-height: 50vh;">
+                    <h1 class="text-4xl">Not Found Product</h1>
+                </div>
+                
+                
                 @foreach($items as $item)
-                        <div class="items-card max-w-sm w-80 h-90 bg-white rounded overflow-hidden shadow-lg">
+                    <div class="items-card max-w-sm w-80 h-90 bg-white rounded overflow-hidden shadow-lg" >
                             <a href="/home/{{$item->id}}">
                             <div class="w-full overflow-hidden flex justify-center" width="50rem" style="height: 20rem">
                                 @if($item->photo != null)
@@ -126,8 +144,11 @@
                             </div>
                             <div class="px-6 py-4">
                                 <div>
-                                    <b class="item-title">{{$item->name}}</b>
+                                    <b class="item-title">
+                                        {{$item->name}}
+                                    </b>
                                 </div>
+                                <br/>
                                 <div>
                                     @if($item->discount > 0)
                                     <strike>Rp.{{number_format($item->price, 2, ',', '.')}}</strike> <b class="discount">Rp.{{number_format($item->price-$item->price*$item->discount, 2, ',', '.')}}</b>
@@ -153,7 +174,7 @@
                 @endforeach
         </div>
     </div>
-    <div class="w-20 h-20 fixed bottom-0 right-4 rounded-full overflow-hidden">
+    <div class="w-20 h-20 fixed bottom-0 right-4 rounded-full overflow-hidden z-30">
         <a href="https://www.tokopedia.com/kspec-olstore?source=universe&st=product"><img src="img/tokped.png" /></a>
     </div>
     <!----- End of Catalogue ----->
@@ -172,17 +193,24 @@ function UpdateInput(input){
     document.querySelectorAll('.items-card').forEach((e, index)=>{
         e.classList.add("hidden");
     })
-    
+    let checkNum = 0;
     document.querySelectorAll('.item-title').forEach((e, index)=>{
         // console.log(input);
         // console.log(e.innerHTML);
         let check = e.innerHTML;
-        if(check.includes(input)){
-            console.log("berhasil");
+        if(check.toLowerCase().includes(input.toLowerCase())){
+            // console.log("berhasil");
+            checkNum = 1;
             e.parentElement.parentElement.parentElement.parentElement.classList.remove('hidden');
         }
         
     })
+
+    if(input.length === 0){
+        document.querySelector('.discount-text').classList.add("hidden");
+    }else if(checkNum == 0){
+        document.querySelector('.discount-text').classList.remove("hidden");
+    }
 }
 
 function SearchDiscount(){
@@ -196,6 +224,7 @@ function SearchDiscount(){
     document.querySelectorAll('.discount').forEach((e, index)=>{
         e.parentElement.parentElement.parentElement.parentElement.classList.remove('hidden');
     })
+    document.querySelector('.discount-text').classList.remove("hidden");
 }
 
 function ShowAll(){
@@ -205,6 +234,15 @@ function ShowAll(){
     document.querySelectorAll('.items-card').forEach((e, index)=>{
         e.classList.remove('hidden');
     })
+    document.querySelector('.discount-text').classList.add("hidden");
 }
+
+
+document.querySelector(".address-box").addEventListener("click", () =>{
+    document.querySelectorAll(".address-detail").forEach((e, index)=>{
+        e.classList.contains("hidden") ? e.classList.remove("hidden") : e.classList.add("hidden");
+    })
+})
+
 </script>
 @endsection

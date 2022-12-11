@@ -47,9 +47,9 @@
 
         </div>
         <div class="bg-white rounded-xl p-4 md:w-2/3 ">
-            <div class="flex justify-end px-8">
-                <button class="btn-copy relative" onmouseout="outFunc()" onclick="CopyFunction()">
-                    <span class="copy invisible absolute"></span>
+            <div class="flex hover:z-50 justify-end px-8">
+                <button class="btn-copy relative" onmouseout="return outFunc()" onclick="CopyFunction()">
+                    <span class="copy invisible absolute">Copy to clipboard</span>
                     <i class="fa-solid fa-share-nodes text-2xl"></i>
                 </button>
             </div>
@@ -89,12 +89,8 @@
         let copyLink = "{{url()->current()}}"
         navigator.clipboard.writeText(copyLink);
         var copy = document.querySelector(".copy");
+        copy.innerHTML = " ";
         copy.innerHTML = "Link Copied!"
-    }
-
-    function outFunc(){
-        let copy = document.querySelector('.copy');
-        copy.innerHTML = "Copy to clipboard";
     }
 </script>
 @endsection
