@@ -9,6 +9,7 @@
         <div class="w-96 justify-center items-center">
             <div class="mb-3 w-full">
                 <div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
+                <a href="/dashboard/export-sales"><button class="mb-5 text-white w-96 bg-blue-600 hover:shadow-lg focus:bg-blue-700 rounded p-2">Export Sales Number</button></a>
                     <a href="/dashboard/new-product"><button class="mb-5 text-white w-96 bg-blue-600 hover:shadow-lg focus:bg-blue-700 rounded p-2">Add New Product</button></a>
                     <input placeholder="Cari di katalog" id="search" class="rounded-md w-full py-3 px-3" value="" onchange="UpdateInput(this.value)" />
                     <div class="mt-4">

@@ -33,13 +33,13 @@ Route::controller(DashboardController::class)->middleware('auth', 'fired')->grou
     Route::get('/hireAgain/{id}', 'hire')->name('hire');
     // Route::get('/dashboard/stock', 'stock')->name('dashboard.addStock');
     // Route::get('/dashboard/stock-product', 'addStock')->name('dashboard.addStock');
+    Route::get('/dashboard/export-sales', 'exportSales')->middleware('admin');
 });
 
 Route::get("/about-us", function(){
     return view('aboutUs');
 });
 
-//!!!!RAPIHIN
 Route::controller(CashierController::class)->middleware('auth')->group(function(){
     Route::get('/cashier', 'index');
     Route::post('/cashier', 'store');

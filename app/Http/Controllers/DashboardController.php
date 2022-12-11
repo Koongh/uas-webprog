@@ -8,6 +8,11 @@ use App\Models\Category;
 use App\Models\User;
 use App\Models\Motorcycle;
 use Storage;
+use Carbon\Carbon;
+//spreadsheet export dependencies
+use App\Exports\SalesExport;
+use Maatwebsite\Excel\Facades\Excel;
+//end of spreadsheet export dependencies
 
 class DashboardController extends Controller
 {
@@ -155,4 +160,7 @@ class DashboardController extends Controller
     //     $item->description = "ini hasil test berhasil";
     // }
     
+    public function exportSales(){
+        return Excel::download(new SalesExport, Carbon::now()->toDateString().' KSPECMOTOR report.xlsx');
+    }
 }
